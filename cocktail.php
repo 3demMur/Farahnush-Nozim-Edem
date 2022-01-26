@@ -27,14 +27,14 @@ function makeBloodyMary(
 {
     echo
     "STEP 1<br>
-    Place the ice in a large jug. Measure the vodka, tomato juice and lemon juice and pour it straight onto the ice.<br>
+    Place the $ice in a large jug. Measure the $vodka, $tomato_juice and $lemon_juice and pour it straight onto the ice.<br>
     
     STEP 2<br>
-    Add 3 shakes of Worcestershire sauce and Tabasco (or more if you like it very spicy) and a pinch of celery salt and pepper.<br>
+    Add 3 shakes of $Worcestershire_sauce and $tabasko_sauce (or more if you like it very spicy) and a pinch of $salt_pinch and $balck_pepper_pich.<br>
      Stir until the outside of the jug feels cold, then strain the cocktail into 2 tall glasses.<br>
     
     STEP 3<br>
-    Top up with fresh ice, add a celery stick and lemon slice to both glasses and enjoy.<br>"
+    Top up with fresh $ice, add a $celery_stick and lemon slice to both glasses and enjoy.<br>"
 };
 
 makeBloodyMary(1, 100, 500, 1, 2, 2, 1, 1, 2)
