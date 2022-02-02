@@ -63,38 +63,50 @@
 
 function validateMinTransaction($money, $min_value)
 {
-    if(mb_strlen($money) < $min_value){
+    if ($money < $min_value) {
         return "Error not enough money";
     }
     return "It's OK";
 }
+
 function validateMaxTransaction($money, $max_value)
 {
-    if(mb_strlen($money) > $max_value){
-        return "Error too much money";
+    if ($money > $max_value) {
+        return "Error";
+    }else{
+        return "It's OK";
     }
-    return "It's OK";
+
+
 }
 
-function validateIntTransaction($money){
-    if (!is_int($money)){
-        return "It is not a number please change";
-    }
-    return "It's OK Int";
-}
-function validateReceiverCorrectNumber($number, $correct_number){
-
-
-
-    if ($number = $correct_number){
-        return "It's right number";
-    }
-    return "Incorrect account number";
-}
-
-function message(int $money, int $min_value,int $max_value, int $number, int $correct_number )
+function validateIntTransaction($money)
 {
-    $validate_min = validateMinTransaction($money,1000) . "</br>";
+    if (!is_int($money)) {
+        return "It is not a number please change";
+    }else{
+        return "It's OK Int";
+    }
+
+}
+
+function validateReceiverCorrectNumber($number, $correct_number): string
+{
+
+
+    if (mb_strlen($number) < $correct_number ) {
+        return "not enough characters, please add more";
+    }elseif(mb_strlen($number) > $correct_number ){
+        return "To much characters please delete some";
+    }else{
+        return "It's OK";
+    }
+
+}
+
+function message(int $money, int $number,)
+{
+    $validate_min = validateMinTransaction($money, 1000) . "</br>";
     $validate_max = validateMaxTransaction($money, 1000000) . "</br>";
     $validate_int = validateIntTransaction($money) . "</br>";
     $validate_receiver = validateReceiverCorrectNumber($number, 16) . "</br>";
@@ -102,6 +114,16 @@ function message(int $money, int $min_value,int $max_value, int $number, int $co
     return "$validate_min $validate_max $validate_int $validate_receiver";
 
 }
+
+echo message(10000, 1111222233334444);
+
+//echo validateReceiverCorrectNumber(14, 3);
+
+//echo validateIntTransaction(1321321);
+
+//echo validateMaxTransaction(500, 300);
+
+//echo validateMinTransaction(4 , 5);
 
 
 
