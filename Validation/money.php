@@ -118,6 +118,10 @@ function message(int $money, int $number,)
     return "$validate_min $validate_max $validate_int $validate_receiver";
 
 }
+//$money = readline("Please enter the amount of money you want to transfer :");
+//$number = readline("Please ender sender's account number");
+
+
 
 //echo message(10000, 1111222233334444);
 
@@ -129,10 +133,9 @@ function message(int $money, int $number,)
 
 //echo validateMinTransaction(4 , 5);
 
-$money = readline("Please enter the amount of money you want to transfer :");
-$number = readline("Please ender sender's account number");
 
-echo message($money, $number);
+//
+//echo message($money, $number);
 
 
 //function to count number of digits
@@ -150,4 +153,6 @@ echo message($money, $number);
 //echo "$y contains: ".countDigits($y)." digits\n";
 //
 
+$result = call_user_func_array('message',[10000, 1111222233334444]);
 
+echo $result;
