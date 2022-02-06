@@ -61,41 +61,41 @@
 ////echo validationReceiverMinAccount(1111222);
 
 
-function validateMinTransaction($money, $min_value)
+function validateMin($money, $min_value)
 {
     if ($money < $min_value) {
         return "Error, low money transfer \n";
     }
-    return "It's OK, money transfer money transfer within the lower threshold \n ";
+    return "It's OK, money transfer within the lower threshold \n ";
 }
 
-function validateMaxTransaction($money, $max_value)
+function validateMax($money, $max_value)
 {
     if ($money > $max_value) {
         return "Error, money transfer is greater than the maximum value \n ";
-    }else{
+    } else {
         return "It's OK, money transfer within the maximum threshold \n ";
     }
 
 
 }
 
-function validateIntTransaction($money)
+function validateInt($money)
 {
+
     if (!is_int($money)) {
         return "It is not a number please change to number \n";
-    }else{
+    } else {
         return "It's OK, your value is integer  \n";
     }
-
 }
 
-function validateReceiverCorrectNumber($number, $correct_number): string
+function validateAccount($number, $correct_number): string
 {
 
-    if (strlen($number) == $correct_number){
+    if (strlen($number) == $correct_number) {
         return "Successes, you entered right Receiver account number";
-    }else{
+    } else {
         return "Error, wrong account number, please change it ";
     }
 //    if (mb_strlen($number) < $correct_number ) {
@@ -106,53 +106,71 @@ function validateReceiverCorrectNumber($number, $correct_number): string
 //        return "It's OK ";
 //    }
 
+
+
+
+
+
+//function message($money, int $number,)
+//{
+//    $validate_int = validateIntTransaction($money);
+//    $validate_min = validateMinTransaction($money, 1000);
+//    $validate_max = validateMaxTransaction($money, 1000000);
+//    $validate_receiver = validateReceiverCorrectNumber($number, 16);
+//
+//
+//    return "$validate_min $validate_max $validate_int $validate_receiver";
+
 }
 
-function message(int $money, int $number,)
-{
-    $validate_min = validateMinTransaction($money, 1000) ;
-    $validate_max = validateMaxTransaction($money, 1000000) ;
-    $validate_int = validateIntTransaction($money) ;
-    $validate_receiver = validateReceiverCorrectNumber($number, 16);
-
-    return "$validate_min $validate_max $validate_int $validate_receiver";
-
-}
 //$money = readline("Please enter the amount of money you want to transfer :");
 //$number = readline("Please ender sender's account number");
 
 
 
-//echo message(10000, 1111222233334444);
 
-//echo validateReceiverCorrectNumber(22222, 5);
+function validate($rules, $request)
+{
+    $message = [];
+    //"int", "min:100000", "max:10000"
 
-//echo validateIntTransaction(1321321);
 
-//echo validateMaxTransaction(500, 300);
+    $rules_in_array = explode("|", $rules);
+    foreach ($rules_in_array as $rule ){
+        $value_semicolumns = explode(":",$rule );
+        ////"int", "min", "100000", "max", "10000"
+        array_push($message, call_user_func_array('validate' . ucfirst($value_semicolumns[0]), [$request,$value_semicolumns[1] ]));
+    }
+    return $message;
+}
 
-//echo validateMinTransaction(4 , 5);
+
+
+function index($request)
+{
+    $rules = "int|min:100000|max:10000000|account:16";
+    $messages = validate($rules, $request);
+
+    return count($messages)
+        ? implode (',\n',$messages)
+        : 'No available messages';
+
+}
+
+
+$request = 250000;//в центах
+echo index($request);
+
+
 
 
 //
 //echo message($money, $number);
 
 
-//function to count number of digits
-//function countDigits($MyNum){
-//    $MyNum = (int)$MyNum;
-//    if($MyNum != 0)
-//        return 1 + countDigits($MyNum/10);
-//    else
-//        return 0;
-//}
-//
-//$x = 5222222264;
-//$y = 20;
-//echo "$x contains: ".countDigits($x)." digits\n";
-//echo "$y contains: ".countDigits($y)." digits\n";
-//
 
-$result = call_user_func_array('message',[10000, 1111222233334444]);
+//$result = call_user_func_array('message', [1000000, 1111222233334444]);
+//
+//echo $result;
 
-echo $result;
+
